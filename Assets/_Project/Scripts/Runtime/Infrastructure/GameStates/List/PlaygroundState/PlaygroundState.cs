@@ -64,7 +64,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
       TicTacToeConfig ticTacToeConfig = gameFactory.GetTicTacToeConfig();
        _ticTacToe = gameFactory.CreateTicTacToe(null);
        _ticTacToe.Initialization(ticTacToeConfig,
-        gameFactory.CreateCellPanel, PlayerWinHandle, BotWinHandle, NoWinnersHandle);
+        gameFactory.CreateCellPanel, PlayerWinHandler, BotWinHandler, NoWinnersHandler);
 
       uiFactory.CleanupAddressableGroup();
       gameFactory.CleanupAddressableGroup();
@@ -89,7 +89,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
     private void Back() => 
       GoToState<MainMenuState.MainMenuState>();
 
-    private void PlayerWinHandle()
+    private void PlayerWinHandler()
     {
       AddScore();
 
@@ -97,7 +97,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
       ShowResultWindow();
     }
 
-    private void BotWinHandle()
+    private void BotWinHandler()
     {
       SubtractScore();
 
@@ -105,7 +105,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
       ShowResultWindow();
     }
 
-    private void NoWinnersHandle()
+    private void NoWinnersHandler()
     {
       _gameResultWindow.SetupWindow(ResultWindowTitleNoWinners, ResultWindowDescriptionNoWinners);
       ShowResultWindow();
