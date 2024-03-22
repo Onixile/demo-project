@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7037256917444428739}
   - component: {fileID: 303012613129008331}
   m_Layer: 0
-  m_Name: Back Button
+  m_Name: Pause Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _windowAnimationDuration: 0.3
   _windowCanvasGroup: {fileID: 7112933018117330335}
-  _backButton: {fileID: 7037256917444428739}
+  _pauseButton: {fileID: 7037256917444428739}
 --- !u!1 &4130401125162106307
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Back to main menu
+  m_text: Pause
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

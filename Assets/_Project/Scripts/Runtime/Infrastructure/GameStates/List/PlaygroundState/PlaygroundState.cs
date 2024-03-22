@@ -3,7 +3,9 @@ using _Project.Scripts.Runtime.Infrastructure.GameServices;
 using _Project.Scripts.Runtime.Infrastructure.GameServices.List.FactoriesProvider.List;
 using _Project.Scripts.Runtime.Infrastructure.GameServices.List.PlayerProgress;
 using _Project.Scripts.Runtime.UI;
+using DG.Tweening;
 using UnityEngine;
+using PopupWindow = _Project.Scripts.Runtime.UI.PopupWindow;
 
 namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundState
 {
@@ -20,10 +22,15 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
     private const string ResultWindowDescriptionLose = "You will win in next time!";
     private const string ResultWindowTitleNoWinners = "No Winners";
     private const string ResultWindowDescriptionNoWinners = "...and no loosers!";
+    private const string PopupTitlePause = "Pause";
+    private const string PopupDescriptionPause = "Do you want to continue?";
 
     private IPlayerProgress _playerProgress;
+    private PopupWindow _popupWindow;
     private PlaygroundWindow _playgroundWindow;
     private GameResultWindow _gameResultWindow;
+    
+    private TicTacToe _ticTacToe;
 
     public PlaygroundState(GameStatesMachine gameStatesMachine, IGameServices gameServices) : base(gameStatesMachine, gameServices)
     {
@@ -47,15 +54,17 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
 
       Transform uiParent = InitializeUIStatePanel(nameof(PlaygroundState));
 
+      _popupWindow = uiFactory.PopupWindow;
+      
       _playgroundWindow = uiFactory.CreatePlaygroundWindow(uiParent);
-      _playgroundWindow.Initialization(Back);
-
       _gameResultWindow = uiFactory.CreateGameResultWindow(uiParent);
+      
+      _playgroundWindow.Initialization(Pause);
       _gameResultWindow.Initialization(Back);
 
       TicTacToeConfig ticTacToeConfig = gameFactory.GetTicTacToeConfig();
-      TicTacToe game = gameFactory.CreateTicTacToe(null);
-      game.Initialization(ticTacToeConfig,
+       _ticTacToe = gameFactory.CreateTicTacToe(null);
+       _ticTacToe.Initialization(ticTacToeConfig,
         gameFactory.CreateCellPanel, PlayerWinHandle, BotWinHandle, NoWinnersHandle);
 
       uiFactory.CleanupAddressableGroup();
@@ -64,8 +73,19 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
       uiFactory.LoadingWindow.Hide();
     }
 
-    private void Back() =>
-      GoToState<MainMenuState.MainMenuState>();
+    private void Pause()
+    {
+      _popupWindow.SetupWindow(PopupTitlePause, PopupDescriptionPause, Continue, Back);
+      _popupWindow.Show();
+
+      _ticTacToe.PauseGame(true);
+    }
+
+    private void Continue() => 
+      _popupWindow.Hide(delegate {  _ticTacToe.PauseGame(false); });
+
+    private void Back() => 
+      _popupWindow.Hide(GoToState<MainMenuState.MainMenuState>);
 
     private void PlayerWinHandle()
     {

@@ -24,10 +24,14 @@ namespace _Project.Scripts.Runtime.Game
     private Action _onPlayerWin;
     private Action _onBotWin;
     private Action _onNoWinners;
+    
+    private bool _isPaused;
 
     public void Initialization(TicTacToeConfig config,
       Func<Transform, GameObject> onCreateCellPanel, Action onPlayerWin, Action onBotWin, Action onNoWinners)
     {
+      _isPaused = false;
+      
       transform.position += config.FiledOffset;
       
       _onNoWinners = onNoWinners;
@@ -70,10 +74,21 @@ namespace _Project.Scripts.Runtime.Game
       }
     }
 
+    public void PauseGame(bool value)
+    {
+      _isPaused = value;
+    }
+    
     private IEnumerator Game()
     {
       while (true)
       {
+        if (_isPaused)
+        {
+          yield return null;
+          continue;
+        }
+
         if (EndGameCheck())
           break;
 

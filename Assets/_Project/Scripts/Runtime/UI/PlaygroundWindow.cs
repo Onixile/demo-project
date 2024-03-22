@@ -6,11 +6,11 @@ namespace _Project.Scripts.Runtime.UI
 {
   public class PlaygroundWindow : Window
   {
-    [SerializeField] private Button _backButton;
+    [SerializeField] private Button _pauseButton;
 
-    public virtual void Initialization(UnityAction onBack)
+    public virtual void Initialization(UnityAction onPause)
     {
-      _backButton.onClick.AddListener(onBack);
+      _pauseButton.onClick.AddListener(onPause);
       
       Show();
     }

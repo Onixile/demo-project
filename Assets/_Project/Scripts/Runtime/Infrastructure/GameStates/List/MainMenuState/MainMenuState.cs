@@ -54,9 +54,9 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.MainMenuState
       _gameEscaper.Initialization(OnEscape);
 
       _mainMenuWindow = uiFactory.CreateMainMenuWindow(uiParent);
-      _mainMenuWindow.Initialization(OpenPlayground, OpenShop, playerProgress.Data.GetScore().ToString());
-
       _shopWindow = uiFactory.CreateShopWindow(uiParent, shopData, out ShopContent[] shopContents);
+      
+      _mainMenuWindow.Initialization(OpenPlayground, OpenShop, playerProgress.Data.GetScore().ToString());
       _shopWindow.Initialization(CloseShop, ClickShopContent, shopContents);
 
       uiFactory.CleanupAddressableGroup();
