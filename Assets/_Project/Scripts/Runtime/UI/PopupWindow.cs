@@ -12,7 +12,7 @@ namespace _Project.Scripts.Runtime.UI
     [SerializeField] private Button _yesButton;
     [SerializeField] private Button _noButton;
 
-    public void Initialization(string title, string description, UnityAction onYes, UnityAction onNo)
+    public void SetupWindow(string title, string description, UnityAction onYes, UnityAction onNo)
     {
       _titleText.text = title;
       _descriptionText.text = description;

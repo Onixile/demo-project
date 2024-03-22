@@ -23,9 +23,9 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.InitialState
 
     private async UniTask InitializationAsync()
     {
-      UIFactory uiFactory = GetUIFactory();
+      UIFactory uiFactory = GetFactory<UIFactory>();
 
-      await uiFactory.LoadAddressableAssetsGroupAsync(UIAssetsGroupLabel);
+      await uiFactory.LoadAddressableGroupAsync(UIAssetsGroupLabel);
 
       uiFactory.CreateCanvas();
       uiFactory.CreateLoadingWindow();

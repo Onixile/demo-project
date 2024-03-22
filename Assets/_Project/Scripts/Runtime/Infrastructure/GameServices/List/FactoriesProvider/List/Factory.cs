@@ -9,17 +9,20 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameServices.List.FactoriesPro
   {
     protected readonly IAssetsProvider AssetsProvider;
 
-    protected GameObject[] LoadedAssetsGroup;
+    protected GameObject[] LoadedGameObjectGroup;
 
     protected Factory(IAssetsProvider assetsProvider) =>
       AssetsProvider = assetsProvider;
 
-    public async UniTask LoadAddressableAssetsGroupAsync(string labelName) => 
-      LoadedAssetsGroup = await AssetsProvider.LoadAddressableAssetsGroupAsync(labelName);
+    public async UniTask LoadAddressableGroupAsync(string labelName) => 
+      LoadedGameObjectGroup = await AssetsProvider.LoadAddressableAssetsGroupAsync<GameObject>(labelName);
 
     public void CleanupAddressableGroup() =>
-      LoadedAssetsGroup = null;
+      LoadedGameObjectGroup = null;
 
+    protected T LoadFromResources<T>(string path) where T : Object =>
+      AssetsProvider.GetResource<T>(path);
+    
     protected T InstantiateFromResources<T>(string path) where T : Object =>
       Object.Instantiate(AssetsProvider.GetResource<T>(path));
 
@@ -30,12 +33,12 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameServices.List.FactoriesPro
       Object.Instantiate(AssetsProvider.GetResource<T>(path), parent);
 
     protected GameObject InstantiateFromAssetsGroup(string path) =>
-      Object.Instantiate(LoadedAssetsGroup.FirstOrDefault(g => g.name == path));
+      Object.Instantiate(LoadedGameObjectGroup.FirstOrDefault(g => g.name == path));
 
     protected GameObject InstantiateFromAssetsGroup(string path, Vector3 position, Quaternion rotation) =>
-      Object.Instantiate(LoadedAssetsGroup.FirstOrDefault(g => g.name == path), position, rotation);
+      Object.Instantiate(LoadedGameObjectGroup.FirstOrDefault(g => g.name == path), position, rotation);
 
     protected GameObject InstantiateFromAssetsGroup(string path, Transform parent) =>
-      Object.Instantiate(LoadedAssetsGroup.FirstOrDefault(g => g.name == path), parent);
+      Object.Instantiate(LoadedGameObjectGroup.FirstOrDefault(g => g.name == path), parent);
   }
 }

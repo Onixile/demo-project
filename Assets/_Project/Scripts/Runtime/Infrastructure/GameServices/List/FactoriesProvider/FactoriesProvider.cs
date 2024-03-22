@@ -14,6 +14,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameServices.List.FactoriesPro
       _factories = new List<Factory>();
       
       _factories.Add(new UIFactory(assetsProvider));
+      _factories.Add(new GameFactory(assetsProvider));
     }
 
     public TFactory GetFactory<TFactory>() where TFactory : Factory =>

@@ -31,10 +31,10 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameServices.List.AssetsProvid
       return assets;
     }
 
-    public async UniTask<GameObject[]> LoadAddressableAssetsGroupAsync(string label)
+    public async UniTask<T[]> LoadAddressableAssetsGroupAsync<T>(string label)
     {
-      GameObject[] loadedAssetsGroup = null;
-      AsyncOperationHandle<IList<GameObject>> handle = Addressables.LoadAssetsAsync<GameObject>(label, null);
+      T[] loadedAssetsGroup = null;
+      AsyncOperationHandle<IList<T>> handle = Addressables.LoadAssetsAsync<T>(label, null);
 
       await handle.Task;
 
@@ -42,7 +42,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameServices.List.AssetsProvid
         loadedAssetsGroup = handle.Result.ToArray();
       else
       {
-        loadedAssetsGroup = Array.Empty<GameObject>();
+        loadedAssetsGroup = Array.Empty<T>();
         Debug.LogError($"Can't load addressable group: {label}");
       }
 

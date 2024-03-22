@@ -39,7 +39,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List
     {
       if (useLoadingWindow)
       {
-        _loadingWindow ??= GetUIFactory().LoadingWindow;
+        _loadingWindow ??= GetFactory<UIFactory>().LoadingWindow;
         _loadingWindow.SetupWindow(loadingWindowDescriptionText);
 
         if (autoHideWindow)
@@ -54,11 +54,12 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List
         _gameServices.Get<ISceneLoader>().Load(sceneName, onComplete, onSetProgress);
     }
 
-    protected UIFactory GetUIFactory() => _gameServices.Get<IFactoriesProvider>().GetFactory<UIFactory>();
-    
+    protected TFactory GetFactory<TFactory>() where TFactory : Factory
+      => _gameServices.Get<IFactoriesProvider>().GetFactory<TFactory>();
+
     protected Transform InitializeUIStatePanel(string gameObjectName)
     {
-      _uiStatePanel = GetUIFactory().CreateGameStateWindow(gameObjectName);
+      _uiStatePanel = GetFactory<UIFactory>().CreateGameStateWindow(gameObjectName);
       _uiStatePanel.Initialization();
 
       return _uiStatePanel.transform;

@@ -7,7 +7,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameServices.List.PlayerProgre
   {
     private const string SaveKey = "PlayerProgressData";
     
-    public PlayerProgressData Data { get; }
+    public IPlayerProgressData Data { get; }
 
     public PlayerProgress() =>
       Data = Load();
@@ -18,7 +18,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameServices.List.PlayerProgre
       PlayerPrefs.SetString(SaveKey, playerProgressData);
     }
 
-    public PlayerProgressData Load()
+    private PlayerProgressData Load()
     {
       if (PlayerPrefs.HasKey(SaveKey))
       {

@@ -42,9 +42,9 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.MainMenuState
       // TODO: For Tests
       ShopData shopData = JsonConvert.DeserializeObject<ShopData>(assetsProvider.GetResource<TextAsset>(ShopItemsJsonPath).text);
 
-      UIFactory uiFactory = GetUIFactory();
+      UIFactory uiFactory = GetFactory<UIFactory>();
 
-      await uiFactory.LoadAddressableAssetsGroupAsync(UIAssetsGroupLabel);
+      await uiFactory.LoadAddressableGroupAsync(UIAssetsGroupLabel);
 
       Transform uiParent = InitializeUIStatePanel(nameof(MainMenuState));
       
@@ -54,7 +54,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.MainMenuState
       _gameEscaper.Initialization(OnEscape);
 
       _mainMenuWindow = uiFactory.CreateMainMenuWindow(uiParent);
-      _mainMenuWindow.Initialization(OpenPlayground, OpenShop, playerProgress.Data.Score.ToString());
+      _mainMenuWindow.Initialization(OpenPlayground, OpenShop, playerProgress.Data.GetScore().ToString());
 
       _shopWindow = uiFactory.CreateShopWindow(uiParent, shopData, out ShopContent[] shopContents);
       _shopWindow.Initialization(CloseShop, ClickShopContent, shopContents);
@@ -81,7 +81,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.MainMenuState
     private void ClickShopContent(string key)
     {
       _gameEscaper.Sleep = true;
-      _popupWindow.Initialization(key, PopupDescriptionShop,
+      _popupWindow.SetupWindow(key, PopupDescriptionShop,
         delegate
         {
           _shopWindow.SetBought(key);
@@ -99,7 +99,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.MainMenuState
 
     private void OnEscape()
     {
-      _popupWindow.Initialization(PopupTitleEscape, PopupDescriptionEscape,
+      _popupWindow.SetupWindow(PopupTitleEscape, PopupDescriptionEscape,
         delegate
         {
 #if UNITY_EDITOR

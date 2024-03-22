@@ -12,6 +12,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
     private const int ScoreReward = 100;
     private const string SceneName = "Playground";
     private const string UIAssetsGroupLabel = "ui_Playground";
+    private const string GameAssetsGroupLabel = "game_TicTacToe";
     private const string LoadingWindowDescriptionText = "Loading Playground State";
     private const string ResultWindowTitleWin = "Win";
     private readonly string ResultWindowDescriptionWin = $"You have just earned {ScoreReward} score!";
@@ -20,6 +21,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
     private const string ResultWindowTitleNoWinners = "No Winners";
     private const string ResultWindowDescriptionNoWinners = "...and no loosers!";
 
+    private IPlayerProgress _playerProgress;
     private PlaygroundWindow _playgroundWindow;
     private GameResultWindow _gameResultWindow;
 
@@ -35,26 +37,34 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
 
     protected async void Initialization()
     {
-      UIFactory uiFactory = GetUIFactory();
+      _playerProgress = _gameServices.Get<IPlayerProgress>();
 
-      await uiFactory.LoadAddressableAssetsGroupAsync(UIAssetsGroupLabel);
+      UIFactory uiFactory = GetFactory<UIFactory>();
+      GameFactory gameFactory = GetFactory<GameFactory>();
+
+      await uiFactory.LoadAddressableGroupAsync(UIAssetsGroupLabel);
+      await gameFactory.LoadAddressableGroupAsync(GameAssetsGroupLabel);
 
       Transform uiParent = InitializeUIStatePanel(nameof(PlaygroundState));
 
       _playgroundWindow = uiFactory.CreatePlaygroundWindow(uiParent);
       _playgroundWindow.Initialization(Back);
-      
+
       _gameResultWindow = uiFactory.CreateGameResultWindow(uiParent);
       _gameResultWindow.Initialization(Back);
 
-      // TODO: For Tests
-      Object.FindObjectOfType<TicTacToe>().Initialization(PlayerWinHandle, BotWinHandle, NoWinnersHandle);
+      TicTacToeConfig ticTacToeConfig = gameFactory.GetTicTacToeConfig();
+      TicTacToe game = gameFactory.CreateTicTacToe(null);
+      game.Initialization(ticTacToeConfig,
+        gameFactory.CreateCellPanel, PlayerWinHandle, BotWinHandle, NoWinnersHandle);
 
       uiFactory.CleanupAddressableGroup();
+      gameFactory.CleanupAddressableGroup();
+      
       uiFactory.LoadingWindow.Hide();
     }
 
-    private void Back() => 
+    private void Back() =>
       GoToState<MainMenuState.MainMenuState>();
 
     private void PlayerWinHandle()
@@ -67,8 +77,8 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
 
     private void BotWinHandle()
     {
-      RemoveScore();
-      
+      SubtractScore();
+
       _gameResultWindow.SetupWindow(ResultWindowTitleLose, ResultWindowDescriptionLose);
       ShowResultWindow();
     }
@@ -79,21 +89,19 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
       ShowResultWindow();
     }
 
-    private void ShowResultWindow() => 
+    private void ShowResultWindow() =>
       _playgroundWindow.Hide(delegate { _gameResultWindow.Show(); });
 
     private void AddScore()
     {
-      IPlayerProgress playerProgress = _gameServices.Get<IPlayerProgress>();
-      playerProgress.Data.Score += ScoreReward;
-      playerProgress.Save();
+      _playerProgress.Data.AddScore(ScoreReward);
+      _playerProgress.Save();
     }
-    
-    private void RemoveScore()
+
+    private void SubtractScore()
     {
-      IPlayerProgress playerProgress = _gameServices.Get<IPlayerProgress>();
-      playerProgress.Data.Score = Mathf.Clamp(playerProgress.Data.Score - ScoreReward, 0, int.MaxValue);
-      playerProgress.Save();
+      _playerProgress.Data.SubtractScore(ScoreReward);
+      _playerProgress.Save();
     }
   }
 }

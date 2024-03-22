@@ -11,12 +11,8 @@ namespace _Project.Scripts.Runtime.Game
   {
     private const int FieldSize = 3;
 
-    [SerializeField] private GameObject _cellPanelPrefab;
-    [SerializeField] private Sprite _crossSprite;
-    [SerializeField] private Sprite _circleSprite;
-
-    [SerializeField] private Vector2 _startPosition;
-    [SerializeField] [Range(0, 10)] private float _cellOffset;
+    private Sprite _crossSprite;
+    private Sprite _circleSprite;
 
     private FillType _playerFillType;
     private FillType _botFillType;
@@ -24,16 +20,22 @@ namespace _Project.Scripts.Runtime.Game
     private bool _isPlayerTurn;
 
     private Dictionary<Vector2Int, Cell> _inputCells;
-    
+
     private Action _onPlayerWin;
     private Action _onBotWin;
     private Action _onNoWinners;
 
-    public void Initialization(Action onPlayerWin, Action onBotWin, Action onNoWinners)
+    public void Initialization(TicTacToeConfig config,
+      Func<Transform, GameObject> onCreateCellPanel, Action onPlayerWin, Action onBotWin, Action onNoWinners)
     {
+      transform.position += config.FiledOffset;
+      
       _onNoWinners = onNoWinners;
       _onBotWin = onBotWin;
       _onPlayerWin = onPlayerWin;
+
+      _crossSprite = config.CrossSprite;
+      _circleSprite = config.CircleSprite;
       
       _playerFillType = FillType.Cross;
       _botFillType = FillType.Circle;
@@ -52,8 +54,8 @@ namespace _Project.Scripts.Runtime.Game
         {
           for (int y = 0; y < FieldSize; y++)
           {
-            Vector2 spawnPosition = new Vector2(_startPosition.x + _cellOffset * x, _startPosition.y + _cellOffset * y);
-            GameObject cellPanel = Instantiate(_cellPanelPrefab, transform);
+            Vector2 spawnPosition = new Vector2(config.StartPosition.x + config.CellOffset * x, config.StartPosition.y + config.CellOffset * y);
+            GameObject cellPanel = onCreateCellPanel.Invoke(transform);
             cellPanel.transform.localPosition = spawnPosition;
             cellPanel.gameObject.name = $"Input Panel [{x}, {y}]";
 
@@ -197,8 +199,8 @@ namespace _Project.Scripts.Runtime.Game
       }
 
       return false;
-      
-      bool Compare(Cell cellA, Cell cellB, Cell cellC) => 
+
+      bool Compare(Cell cellA, Cell cellB, Cell cellC) =>
         cellA.FillType != FillType.Empty && cellA.FillType == cellB.FillType && cellA.FillType == cellC.FillType;
     }
 

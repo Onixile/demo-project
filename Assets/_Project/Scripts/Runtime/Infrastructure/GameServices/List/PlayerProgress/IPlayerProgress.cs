@@ -2,7 +2,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameServices.List.PlayerProgre
 {
   public interface IPlayerProgress : IGameService
   {
-    PlayerProgressData Data { get; }
+    IPlayerProgressData Data { get; }
 
     void Save();
   }
