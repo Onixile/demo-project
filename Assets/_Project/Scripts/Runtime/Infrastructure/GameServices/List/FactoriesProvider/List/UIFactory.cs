@@ -17,7 +17,6 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameServices.List.FactoriesPro
     private const string ShopWindowPath = "Shop Window";
     private const string ShopContentPath = "Shop Content";
     private const string PlaygroundWindowPath = "Playground Window";
-    private const string GameResultWindowPath = "Game Result Window";
 
     public LoadingWindow LoadingWindow { get; private set; }
     public PopupWindow PopupWindow { get; private set; }
@@ -69,9 +68,6 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameServices.List.FactoriesPro
 
     public PlaygroundWindow CreatePlaygroundWindow(Transform parent) =>
       CreateWindow<PlaygroundWindow>(PlaygroundWindowPath, parent, nameof(PlaygroundWindow).AddSpaceAfterCapital());
-    
-    public GameResultWindow CreateGameResultWindow(Transform parent) =>
-      CreateWindow<GameResultWindow>(GameResultWindowPath, parent, nameof(GameResultWindow).AddSpaceAfterCapital());
 
     private T CreateWindow<T>(string path, Transform parent, string name) where T : Window
     {

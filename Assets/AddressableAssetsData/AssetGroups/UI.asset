@@ -17,12 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: ea72c906be9260b4d83831570e29d306
   m_SerializeEntries:
-  - m_GUID: fabd7227dfbdff24483bbdb82bd569ba
-    m_Address: Popup Window
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - ui_Initial
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 550801d4fe3feb3448645219e26c3536
     m_Address: Playground Window
     m_ReadOnly: 0
@@ -67,16 +61,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - ui_Initial
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c165c93d263e7f940bb98fed07fac785
-    m_Address: Background
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a8ac848b7ae23d24b9e5596a6128a55e
-    m_Address: Game Result Window
+  - m_GUID: fabd7227dfbdff24483bbdb82bd569ba
+    m_Address: Popup Window
     m_ReadOnly: 0
     m_SerializedLabels:
-    - ui_Playground
+    - ui_Initial
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: dfced19587a53b4458ce93eacaf3b490, type: 2}

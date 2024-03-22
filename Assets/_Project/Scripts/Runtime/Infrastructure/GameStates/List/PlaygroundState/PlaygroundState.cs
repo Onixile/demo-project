@@ -4,6 +4,7 @@ using _Project.Scripts.Runtime.Infrastructure.GameServices.List.FactoriesProvide
 using _Project.Scripts.Runtime.Infrastructure.GameServices.List.PlayerProgress;
 using _Project.Scripts.Runtime.UI;
 using UnityEngine;
+using UnityEngine.Events;
 using PopupWindow = _Project.Scripts.Runtime.UI.PopupWindow;
 
 namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundState
@@ -27,7 +28,6 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
     private IPlayerProgress _playerProgress;
     private PopupWindow _popupWindow;
     private PlaygroundWindow _playgroundWindow;
-    private GameResultWindow _gameResultWindow;
     
     private TicTacToe _ticTacToe;
 
@@ -56,10 +56,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
       _popupWindow = uiFactory.PopupWindow;
       
       _playgroundWindow = uiFactory.CreatePlaygroundWindow(uiParent);
-      _gameResultWindow = uiFactory.CreateGameResultWindow(uiParent);
-      
       _playgroundWindow.Initialization(Pause);
-      _gameResultWindow.Initialization(Back);
 
       TicTacToeConfig ticTacToeConfig = gameFactory.GetTicTacToeConfig();
        _ticTacToe = gameFactory.CreateTicTacToe(null);
@@ -74,7 +71,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
 
     private void Pause()
     {
-      _popupWindow.SetupWindow(PopupTitlePause, PopupDescriptionPause, Continue, Abort);
+      _popupWindow.SetupWindow(PopupTitlePause, PopupDescriptionPause, null, Continue, PopupHideAndBack);
       _popupWindow.Show();
 
       _ticTacToe.PauseGame(true);
@@ -83,8 +80,8 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
     private void Continue() => 
       _popupWindow.Hide(delegate {  _ticTacToe.PauseGame(false); });
 
-    private void Abort() => 
-      _popupWindow.Hide(GoToState<MainMenuState.MainMenuState>);
+    private void PopupHideAndBack() => 
+      _popupWindow.Hide(Back);
     
     private void Back() => 
       GoToState<MainMenuState.MainMenuState>();
@@ -93,26 +90,23 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
     {
       AddScore();
 
-      _gameResultWindow.SetupWindow(ResultWindowTitleWin, ResultWindowDescriptionWin);
-      ShowResultWindow();
+      _popupWindow.SetupWindow(ResultWindowTitleWin, ResultWindowDescriptionWin, PopupHideAndBack, null, null);
+      _popupWindow.Show();
     }
 
     private void BotWinHandler()
     {
       SubtractScore();
 
-      _gameResultWindow.SetupWindow(ResultWindowTitleLose, ResultWindowDescriptionLose);
-      ShowResultWindow();
+      _popupWindow.SetupWindow(ResultWindowTitleLose, ResultWindowDescriptionLose, PopupHideAndBack, null, null);
+      _popupWindow.Show();
     }
 
     private void NoWinnersHandler()
     {
-      _gameResultWindow.SetupWindow(ResultWindowTitleNoWinners, ResultWindowDescriptionNoWinners);
-      ShowResultWindow();
+      _popupWindow.SetupWindow(ResultWindowTitleNoWinners, ResultWindowDescriptionNoWinners, PopupHideAndBack, null, null);
+      _popupWindow.Show();
     }
-
-    private void ShowResultWindow() =>
-      _playgroundWindow.Hide(delegate { _gameResultWindow.Show(); });
 
     private void AddScore()
     {

@@ -81,7 +81,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.MainMenuState
     private void ClickShopContent(string key)
     {
       _gameEscaper.Sleep = true;
-      _popupWindow.SetupWindow(key, PopupDescriptionShop,
+      _popupWindow.SetupWindow(key, PopupDescriptionShop, null,
         delegate
         {
           _shopWindow.SetBought(key);
@@ -99,7 +99,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.MainMenuState
 
     private void OnEscape()
     {
-      _popupWindow.SetupWindow(PopupTitleEscape, PopupDescriptionEscape,
+      _popupWindow.SetupWindow(PopupTitleEscape, PopupDescriptionEscape, null,
         delegate
         {
 #if UNITY_EDITOR
