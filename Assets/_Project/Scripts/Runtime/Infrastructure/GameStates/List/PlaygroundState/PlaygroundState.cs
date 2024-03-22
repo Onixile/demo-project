@@ -3,7 +3,6 @@ using _Project.Scripts.Runtime.Infrastructure.GameServices;
 using _Project.Scripts.Runtime.Infrastructure.GameServices.List.FactoriesProvider.List;
 using _Project.Scripts.Runtime.Infrastructure.GameServices.List.PlayerProgress;
 using _Project.Scripts.Runtime.UI;
-using DG.Tweening;
 using UnityEngine;
 using PopupWindow = _Project.Scripts.Runtime.UI.PopupWindow;
 
@@ -75,7 +74,7 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
 
     private void Pause()
     {
-      _popupWindow.SetupWindow(PopupTitlePause, PopupDescriptionPause, Continue, Back);
+      _popupWindow.SetupWindow(PopupTitlePause, PopupDescriptionPause, Continue, Abort);
       _popupWindow.Show();
 
       _ticTacToe.PauseGame(true);
@@ -84,8 +83,11 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameStates.List.PlaygroundStat
     private void Continue() => 
       _popupWindow.Hide(delegate {  _ticTacToe.PauseGame(false); });
 
-    private void Back() => 
+    private void Abort() => 
       _popupWindow.Hide(GoToState<MainMenuState.MainMenuState>);
+    
+    private void Back() => 
+      GoToState<MainMenuState.MainMenuState>();
 
     private void PlayerWinHandle()
     {

@@ -1,5 +1,6 @@
 using _Project.Scripts.Runtime.Game;
 using _Project.Scripts.Runtime.Infrastructure.GameServices.List.AssetsProvider;
+using _Project.Scripts.Runtime.Utility;
 using UnityEngine;
 
 namespace _Project.Scripts.Runtime.Infrastructure.GameServices.List.FactoriesProvider.List
@@ -17,8 +18,13 @@ namespace _Project.Scripts.Runtime.Infrastructure.GameServices.List.FactoriesPro
     public TicTacToeConfig GetTicTacToeConfig() => 
       LoadFromResources<TicTacToeConfig>(TicTacToeConfigPath);
 
-    public TicTacToe CreateTicTacToe(Transform parent) => 
-      InstantiateFromAssetsGroup(TicTacToePanelPath, parent).GetComponent<TicTacToe>();
+    public TicTacToe CreateTicTacToe(Transform parent)
+    {
+      TicTacToe game = InstantiateFromAssetsGroup(TicTacToePanelPath, parent).GetComponent<TicTacToe>();
+      game.name = nameof(TicTacToe).AddSpaceAfterCapital();
+      
+      return game;
+    }
 
     public GameObject CreateCellPanel(Transform parent) => 
       InstantiateFromAssetsGroup(CellPanelPath, parent);
