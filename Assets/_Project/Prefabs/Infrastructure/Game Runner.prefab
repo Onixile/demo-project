@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2397044950484021097}
   - component: {fileID: 2354422299385791144}
   - component: {fileID: 5168350818226403957}
-  - component: {fileID: -1151977096763716287}
   m_Layer: 0
   m_Name: Game Runner
   m_TagString: Untagged
@@ -60,8 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: -1151977096763716287}
+  _monoInstallers: []
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -79,15 +77,3 @@ MonoBehaviour:
   _parentNewObjectsUnderSceneContext: 1
   _contractNames: []
   _parentContractNames: []
---- !u!114 &-1151977096763716287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7344998913229429994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5880921953070da469c96057fe9a7d82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
