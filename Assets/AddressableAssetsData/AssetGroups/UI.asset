@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: UI
+  m_EditorClassIdentifier: 
+  m_GroupName: UI
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c92be4197bfc0ec46a8b45d43be5b106
+  m_SerializeEntries:
+  - m_GUID: adbd447cc174ec84a8cd8e26ae09dd8c
+    m_Address: Playground Screen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_Playground
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 386b684a0f6ba754eb906d660272b385
+    m_Address: Background (Overlay)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_Initial
+    - ui_MainMenu
+    - ui_Playground
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f186344a766b4d4e901291393867aa1
+    m_Address: Background
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_Initial
+    - ui_MainMenu
+    - ui_Playground
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a8a792f67092b34eaf44b6b325e300e
+    m_Address: Popup Screen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_Initial
+    - ui_MainMenu
+    - ui_Playground
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3fdb7af23195f4c458db46c89ffa098b
+    m_Address: UI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_Initial
+    - ui_MainMenu
+    - ui_Playground
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e2389713f467d2045af5ed9058b37bdb
+    m_Address: Settings Screen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_MainMenu
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f033870fb7d3adf4c91e77b2f929c509
+    m_Address: Main Menu Screen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_MainMenu
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f09d0db3d9ef01c4097287c77d9a6503
+    m_Address: Loading Screen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_Initial
+    - ui_MainMenu
+    - ui_Playground
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86ccf4b93c2872741bbd5fbf4e41cbdf
+    m_Address: Level Complete Screen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_Playground
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0509713f260ec242bde8ed2881a4a56
+    m_Address: Game State Screen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_Initial
+    - ui_MainMenu
+    - ui_Playground
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 126bb7838af62ea47804103e30006011
+    m_Address: Shop Content
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_MainMenu
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10a99c716c297454c9cb27be7b060bac
+    m_Address: Shop Screen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_MainMenu
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 27db8c30199603941822892cb1d6d757
+    m_Address: Currency Screen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui_Initial
+    - ui_MainMenu
+    - ui_Playground
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 77cb1ed8be1db694380dc5cc672c4a87, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3ceb15e2ed1f52b40bca0ea771f9dd7c, type: 2}
+    - {fileID: 11400000, guid: 666aa37e058a14449a4fe7e8db64599b, type: 2}

@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Configs
+  m_EditorClassIdentifier: 
+  m_GroupName: Configs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 783c2d8cc54baa049baa9f4d65b5f956
+  m_SerializeEntries:
+  - m_GUID: eb72f6415e54ee248923f48a8029e9f6
+    m_Address: Playground Config
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - config_Playground
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6cd8f0e0eee3273459793274c500834b
+    m_Address: Player Configs
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - config_MainMenu
+    - config_Playground
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f9bb084d80002d241baaf9178ad7a228
+    m_Address: Level Configs
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - config_MainMenu
+    - config_Playground
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 77cb1ed8be1db694380dc5cc672c4a87, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ae5375d8b18573948a7ac7ff96198e1a, type: 2}
+    - {fileID: 11400000, guid: 0c6d591395a47c4449a97e9ccdc10cb9, type: 2}
