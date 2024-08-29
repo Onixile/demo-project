@@ -49,7 +49,7 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameStates.List.MainMenuState
     {
       await _configsFactory.LoadAddressableAssetsAsync(_names.ConfigsGroupLabel);
       
-      PlayerItemConfig[] itemConfigs = _configsFactory.GetPlayerItemConfigs();
+      PlayerItemConfig[] itemConfigs = _configsFactory.GetAll<PlayerItemConfig>();
       _shopContentManager = new ShopContentManager<PlayerItemConfig>(itemConfigs, _saves.Datas.Currency.Soft, _saves.Datas.Progress.PlayerItems, _saves);
 
       await _uiFactory.LoadAddressableAssetsAsync(_names.UIGroupLabel);

@@ -1,5 +1,6 @@
 using System.Linq;
 using _Project.Game.Scripts.Runtime.Configs;
+using _Project.Infrastructure.Scripts.Runtime.Configs;
 using _Project.Infrastructure.Scripts.Runtime.GameServices.List.ConfigProvider;
 using _Project.Infrastructure.Scripts.Runtime.GameServices.List.FactoriesProvider.List.Base;
 
@@ -11,10 +12,10 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameServices.List.FactoriesPro
     {
     }
 
-    public PlayerItemConfig[] GetPlayerItemConfigs() => 
-      GetFromAssetsHandles<PlayerItemConfig>();
+    public T Get<T>() where T : Config =>
+      GetAll<T>().First();
 
-    public PlaygroundConfig GetPlaygroundConfig() => 
-      GetFromAssetsHandles<PlaygroundConfig>().First();
+    public T[] GetAll<T>() where T : Config =>
+      GetFromAssetsHandles<T>();
   }
 }

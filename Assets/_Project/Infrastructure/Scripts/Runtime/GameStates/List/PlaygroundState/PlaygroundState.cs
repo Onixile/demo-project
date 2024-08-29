@@ -53,8 +53,8 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameStates.List.PlaygroundStat
     {
       await _configsFactory.LoadAddressableAssetsAsync(_names.ConfigsGroupLabel);
 
-      PlayerItemConfig playerConfig = _configsFactory.GetPlayerItemConfigs().First(x => x.Id == _saves.Datas.Progress.PlayerItems.GetCurrent());
-      PlaygroundConfig playgroundConfig = _configsFactory.GetPlaygroundConfig();
+      PlayerItemConfig playerConfig = _configsFactory.GetAll<PlayerItemConfig>().First(x => x.Id == _saves.Datas.Progress.PlayerItems.GetCurrent());
+      PlaygroundConfig playgroundConfig = _configsFactory.Get<PlaygroundConfig>();
 
       int numberOfLevel = (int)Mathf.Clamp(_saves.Datas.Progress.Level.Get(), 0, playgroundConfig.LevelConfigs.LastIndex());
       uint reward = playgroundConfig.LevelConfigs[numberOfLevel].LevelDatas.Reward;
