@@ -24,7 +24,7 @@ namespace _Project.Game.Scripts.Runtime.UI.View
 
       _screenAnimationSequence
         .Append(_screenCanvasGroup.DOFade(1, _screenAnimationDuration).SetEase(Ease.OutQuart))
-        .OnComplete(delegate
+        .OnComplete(() =>
         {
           _screenCanvasGroup.interactable = true;
           onComplete?.Invoke();
@@ -37,7 +37,7 @@ namespace _Project.Game.Scripts.Runtime.UI.View
 
       _screenAnimationSequence
         .Append(_screenCanvasGroup.DOFade(0, _screenAnimationDuration).SetEase(Ease.OutQuart))
-        .OnComplete(delegate
+        .OnComplete(() =>
         {
           gameObject.SetActive(false);
           onComplete?.Invoke();
@@ -62,5 +62,8 @@ namespace _Project.Game.Scripts.Runtime.UI.View
 
       _screenAnimationSequence = DOTween.Sequence();
     }
+
+    private void OnDestroy() => 
+      _screenAnimationSequence?.Kill();
   }
 }

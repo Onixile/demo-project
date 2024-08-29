@@ -11,6 +11,7 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameStates
   public class GameStatesMachine
   {
     private readonly Dictionary<Type, IGameStateBase> _gameStates;
+
     private IGameStateBase _activeState;
 
     public GameStatesMachine(IGameServices gameServices)

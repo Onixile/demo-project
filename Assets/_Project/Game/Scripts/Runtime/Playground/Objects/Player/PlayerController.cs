@@ -56,7 +56,7 @@ namespace _Project.Game.Scripts.Runtime.Playground.Objects.Player
     private void OnTriggerEnter2D(Collider2D other)
     {
       Enemy.EnemyObject enemy = other.gameObject.GetComponent<Enemy.EnemyObject>();
-      
+
       if (enemy != null && _ignoreDamage == false)
       {
         _ignoreDamage = true;
@@ -74,7 +74,7 @@ namespace _Project.Game.Scripts.Runtime.Playground.Objects.Player
 
       _renderer.DOFade(0f, 0.1f).SetLoops(4, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetUpdate(true)
         .SetDelay(0.1f)
-        .OnComplete(delegate
+        .OnComplete(() =>
         {
           _renderer.DOFade(1, 0.1f);
           _ignoreDamage = false;
