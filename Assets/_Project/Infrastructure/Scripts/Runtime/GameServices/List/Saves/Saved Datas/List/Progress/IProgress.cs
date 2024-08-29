@@ -5,7 +5,7 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameServices.List.Saves.Saved_
 {
   public interface IProgress
   {
-    IItemsProgress  PlayerItems { get; }
-    ILevelProgress Level { get; }
+    IItemsProgress PlayerItems { get; }
+    ILevelProgress Level       { get; }
   }
 }

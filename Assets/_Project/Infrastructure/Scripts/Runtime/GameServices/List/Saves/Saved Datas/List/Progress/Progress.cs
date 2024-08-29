@@ -6,7 +6,7 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameServices.List.Saves.Saved_
   public class Progress : IProgress
   {
     public IItemsProgress PlayerItems { get; }
-    public ILevelProgress Level { get; }
+    public ILevelProgress Level       { get; }
 
     public Progress()
     {

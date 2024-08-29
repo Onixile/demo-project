@@ -7,6 +7,7 @@ using _Project.Infrastructure.Scripts.Runtime.GameServices;
 using _Project.Infrastructure.Scripts.Runtime.GameServices.List.AudioPlayer;
 using _Project.Infrastructure.Scripts.Runtime.GameServices.List.FactoriesProvider.List;
 using _Project.Infrastructure.Scripts.Runtime.GameServices.List.Saves;
+using _Project.Infrastructure.Scripts.Runtime.Utility.Extensions;
 using UnityEngine;
 
 namespace _Project.Infrastructure.Scripts.Runtime.GameStates.List.PlaygroundState
@@ -55,19 +56,24 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameStates.List.PlaygroundStat
       PlayerItemConfig playerConfig = _configsFactory.GetPlayerItemConfigs().First(x => x.Id == _saves.Datas.Progress.PlayerItems.GetCurrent());
       PlaygroundConfig playgroundConfig = _configsFactory.GetPlaygroundConfig();
 
+      int numberOfLevel = (int)Mathf.Clamp(_saves.Datas.Progress.Level.Get(), 0, playgroundConfig.LevelConfigs.LastIndex());
+      uint reward = playgroundConfig.LevelConfigs[numberOfLevel].LevelDatas.Reward;
+
       await _uiFactory.LoadAddressableAssetsAsync(_names.UIGroupLabel);
       await _playgroundFactory.LoadAddressableAssetsAsync(_names.ObjectsGroupLabel);
 
-      int numberOfLevel = (int)Mathf.Clamp(_saves.Datas.Progress.Level.Get(), 0, playgroundConfig.LevelConfigs.Length - 1);
-
       CreateGameStateScreen(out Transform gameStateScreenRoot, nameof(PlaygroundState));
 
-      _playgroundScreen = new PlaygroundScreenController(_uiFactory.CreateScreen<PlaygroundScreenView>(gameStateScreenRoot), numberOfLevel, GoToMainMenu, _audio);
-      _levelCompleteScreen = new LevelCompleteScreenController(_uiFactory.CreateScreen<LevelCompleteScreenView>(gameStateScreenRoot), GoToMainMenu, _audio);
+      PlaygroundScreenView playgroundScreenView = _uiFactory.CreateScreen<PlaygroundScreenView>(gameStateScreenRoot);
+      LevelCompleteScreenView levelCompleteScreenView = _uiFactory.CreateScreen<LevelCompleteScreenView>(gameStateScreenRoot);
+
+      _playgroundScreen = new PlaygroundScreenController(playgroundScreenView, numberOfLevel, GoToMainMenu, _audio);
+      _levelCompleteScreen = new LevelCompleteScreenController(levelCompleteScreenView, GoToMainMenu, _audio);
 
       _playgroundController = Object.FindObjectOfType<PlaygroundController>();
       _playgroundController.Initialization(_playgroundFactory, playgroundConfig, playerConfig, _playgroundScreen.SetHealth,
-        delegate(bool isWin) { CompleteLevel(isWin, numberOfLevel, playgroundConfig.LevelConfigs[numberOfLevel].LevelDatas.Reward); }, numberOfLevel);
+        isWin => CompleteLevel(isWin, numberOfLevel, reward),
+        numberOfLevel);
 
       _playgroundScreen.Show();
       _loadingScreen.Hide();

@@ -7,16 +7,16 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameServices.List.Saves.Saved_
   {
     [JsonIgnore] private UnityEvent _onUpdate { get; }
 
-    protected SavedData() => 
+    protected SavedData() =>
       _onUpdate = new UnityEvent();
 
-    public void RegisterUpdateListener(UnityAction listener) => 
+    public void RegisterUpdateListener(UnityAction listener) =>
       _onUpdate.AddListener(listener);
 
-    public void UnregisterUpdateListener(UnityAction listener) => 
+    public void UnregisterUpdateListener(UnityAction listener) =>
       _onUpdate.RemoveListener(listener);
 
-    protected void NotifyUpdate() => 
+    protected void NotifyUpdate() =>
       _onUpdate?.Invoke();
   }
 }

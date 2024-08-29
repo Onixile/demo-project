@@ -48,6 +48,7 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameStates.List.MainMenuState
     private async void Initialization()
     {
       await _configsFactory.LoadAddressableAssetsAsync(_names.ConfigsGroupLabel);
+      
       PlayerItemConfig[] itemConfigs = _configsFactory.GetPlayerItemConfigs();
       _shopContentManager = new ShopContentManager<PlayerItemConfig>(itemConfigs, _saves.Datas.Currency.Soft, _saves.Datas.Progress.PlayerItems, _saves);
 
@@ -55,9 +56,14 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameStates.List.MainMenuState
 
       CreateGameStateScreen(out Transform gameStateScreenRoot, nameof(MainMenuState));
 
-      _mainMenuScreen = new MainMenuScreenController(_uiFactory.CreateScreen<MainMenuScreenView>(gameStateScreenRoot), GoToPlayground, () => _settingsScreen.Show(), () => _shopScreen.Show(), _audio);
-      _settingsScreen = new SettingsScreenController(_uiFactory.CreateScreen<SettingsScreenView>(gameStateScreenRoot), _currencyScreen, _saves, _audio);
-      _shopScreen = new ShopScreenController(_uiFactory.CreateScreen<ShopScreenView>(gameStateScreenRoot), _uiFactory.CreateScreenContent<ShopScreenContentView>(gameStateScreenRoot, itemConfigs.Length), _shopContentManager, _currencyScreen, _popupScreen, _audio);
+      MainMenuScreenView menuScreenView = _uiFactory.CreateScreen<MainMenuScreenView>(gameStateScreenRoot);
+      SettingsScreenView settingsScreenView = _uiFactory.CreateScreen<SettingsScreenView>(gameStateScreenRoot);
+      ShopScreenView shopScreenView = _uiFactory.CreateScreen<ShopScreenView>(gameStateScreenRoot);
+      ShopScreenContentView[] shopScreenContentViews = _uiFactory.CreateScreenContent<ShopScreenContentView>(gameStateScreenRoot, itemConfigs.Length);
+
+      _mainMenuScreen = new MainMenuScreenController(menuScreenView, GoToPlayground, () => _settingsScreen.Show(), () => _shopScreen.Show(), _audio);
+      _settingsScreen = new SettingsScreenController(settingsScreenView, _currencyScreen, _saves, _audio);
+      _shopScreen = new ShopScreenController(shopScreenView, shopScreenContentViews, _shopContentManager, _currencyScreen, _popupScreen, _audio);
 
       _currencyScreen.Show();
       _mainMenuScreen.Show();

@@ -9,7 +9,7 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameServices.List.Saves.Saved_
   [Serializable]
   public class SavedDatas : ISavedDatas
   {
-    public IGeneral General { get; private set; }
+    public IGeneral  General  { get; private set; }
     public ICurrency Currency { get; private set; }
     public ISettings Settings { get; private set; }
     public IProgress Progress { get; private set; }

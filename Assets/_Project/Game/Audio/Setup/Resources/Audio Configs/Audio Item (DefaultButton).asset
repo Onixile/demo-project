@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52fefb7bafce1e34c8b0871d8c0f8ce6, type: 3}
-  m_Name: Audio Item Config (DefaultButton)
+  m_Name: Audio Item (DefaultButton)
   m_EditorClassIdentifier: 
   _type: 1
   _audioClip: {fileID: 8300000, guid: 670a0287681f1504db857b56fc0d24f0, type: 3}

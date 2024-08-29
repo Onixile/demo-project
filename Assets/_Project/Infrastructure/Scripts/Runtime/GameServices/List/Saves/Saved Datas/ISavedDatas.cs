@@ -7,7 +7,7 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameServices.List.Saves.Saved_
 {
   public interface ISavedDatas
   {
-    IGeneral General { get; }
+    IGeneral  General  { get; }
     ICurrency Currency { get; }
     ISettings Settings { get; }
     IProgress Progress { get; }

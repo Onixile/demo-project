@@ -7,10 +7,10 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameServices.List.Saves
   public class Saves : ISaves
   {
     private const string SaveKey = "SavedData";
-    
+
     public ISavedDatas Datas { get; set; }
 
-    public Saves() => 
+    public Saves() =>
       Initialization();
 
     public void Update()

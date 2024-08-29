@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using _Project.Infrastructure.Scripts.Runtime.Utility.Extensions;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -25,13 +26,13 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameServices.List.AssetsProvid
     {
       T[] assets = Resources.LoadAll<T>(path);
 
-      if (assets == null || assets.Length == 0)
+      if (assets.IsNullOrEmpty())
         Debug.LogError($"Can't find assets: {path}");
 
       return assets;
     }
 
-    public async UniTask<AsyncOperationHandle<GameObject>[]> GetAssetsByLabel(string label) => 
+    public async UniTask<AsyncOperationHandle<GameObject>[]> GetAssetsByLabel(string label) =>
       await GetAssetsByAssetReferences(await GetAssetReferencesByLabel(label));
 
     private async UniTask<List<AssetReference>> GetAssetReferencesByLabel(string label)

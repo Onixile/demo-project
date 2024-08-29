@@ -24,14 +24,22 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameStates.List.InitialState
 
     private async UniTask InitializationAsync()
     {
+      IAudioPlayer audio = GetService<IAudioPlayer>();
+      ISaves saves = GetService<ISaves>();
+
       UIFactory uiFactory = GetFactory<UIFactory>();
+      
       await uiFactory.LoadAddressableAssetsAsync(_names.UIGroupLabel);
 
       uiFactory.CreateCanvas();
 
-      _loadingScreen = new LoadingScreenController(uiFactory.CreateScreen<LoadingScreenView>());
-      _popupScreen = new PopupScreenController(uiFactory.CreateScreen<PopupScreenView>(), GetService<IAudioPlayer>());
-      _currencyScreen = new CurrencyScreenController(uiFactory.CreateScreen<CurrencyScreenView>(), GetService<ISaves>());
+      LoadingScreenView loadingScreenView = uiFactory.CreateScreen<LoadingScreenView>();
+      PopupScreenView popupScreenView = uiFactory.CreateScreen<PopupScreenView>();
+      CurrencyScreenView currencyScreenView = uiFactory.CreateScreen<CurrencyScreenView>();
+
+      _loadingScreen = new LoadingScreenController(loadingScreenView);
+      _popupScreen = new PopupScreenController(popupScreenView, audio);
+      _currencyScreen = new CurrencyScreenController(currencyScreenView, saves);
     }
   }
 }

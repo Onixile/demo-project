@@ -10,15 +10,15 @@ namespace _Project.Infrastructure.Scripts.Runtime.Configs
     public string Id
     {
       get => _id;
-      set => _id = value;
+      private set => _id = value;
     }
-  
+
     [SerializeField] [ReadOnlyField] private string _id;
-  
+
 #if UNITY_EDITOR
     private void OnEnable()
     {
-      if(string.IsNullOrEmpty(Id))
+      if (string.IsNullOrEmpty(Id))
         GenerateId();
     }
 

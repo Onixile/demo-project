@@ -1,6 +1,7 @@
 using _Project.Game.Scripts.Runtime.Configs;
 using _Project.Game.Scripts.Runtime.Playground.Objects.PathPoint;
 using _Project.Infrastructure.Scripts.Runtime.GameServices.List.FactoriesProvider.List;
+using _Project.Infrastructure.Scripts.Runtime.Utility.Extensions;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -27,13 +28,13 @@ namespace _Project.Game.Scripts.Runtime.Playground.Objects.Player
 
         positions[i] = position;
 
-        GameObject point = i != length - 1
+        GameObject point = i != positions.LastIndex()
           ? factory.CreatePoint<PathPoint.PathPoint>(position, Quaternion.identity).gameObject
           : factory.CreatePoint<FinishPathPoint>(position, Quaternion.identity).gameObject;
 
         point.transform.SetParent(parent);
 
-        if (i == length - 1)
+        if (i == positions.LastIndex())
           point.GetComponent<FinishPathPoint>().SetIcon(levelData.PlanetIcon);
         else
         {

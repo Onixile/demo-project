@@ -14,7 +14,7 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameServices.List.FactoriesPro
     public FactoriesProvider(IAssetsProvider assetsProvider, IConfigsProvider configsProvider)
     {
       _factories = new List<BaseFactory>();
-      
+
       _factories.Add(new UIFactory(assetsProvider));
       _factories.Add(new PlaygroundFactory(assetsProvider));
       _factories.Add(new AllConfigsFactory(configsProvider));

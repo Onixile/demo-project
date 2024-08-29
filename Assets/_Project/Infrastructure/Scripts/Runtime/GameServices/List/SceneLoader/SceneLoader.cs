@@ -10,9 +10,9 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameServices.List.SceneLoader
   public class SceneLoader : ISceneLoader
   {
     private const float FakeProgressThreshold = 0.8f;
-    private const float ProgressThreshold = 1.0f;
+    private const float ProgressThreshold     = 1.0f;
 
-    public void Load(string sceneName, Action onComplete, Action<float> onSetProgress) => 
+    public void Load(string sceneName, Action onComplete, Action<float> onSetProgress) =>
       LoadSceneAsync(sceneName, onComplete, onSetProgress);
 
     private async void LoadSceneAsync(string sceneName, Action onComplete, Action<float> onSetProgress)
@@ -21,7 +21,7 @@ namespace _Project.Infrastructure.Scripts.Runtime.GameServices.List.SceneLoader
 
       await SetFakeProgress(onSetProgress);
       await SetProgress(onSetProgress, asyncOperation);
-      
+
       await UniTask.Delay(50);
 
       onComplete?.Invoke();
